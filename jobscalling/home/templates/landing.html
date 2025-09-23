@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-World Work Experience | Jobs Calling</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #6366f1 0%, #7c3aed 50%, #db2777 100%); }
+    /* Animate gradient for subtle movement */
+    .gradient-bg { background-size: 200% 200%; animation: gradientShift 14s ease infinite; }
+    /* Hero-only gradient override */
+    .hero-gradient { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 45%, #7c3aed 100%); }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .glass {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) translateX(0px) scale(1); }
+      50% { transform: translateY(-12px) translateX(6px) scale(1.02); }
+      100% { transform: translateY(0px) translateX(0px) scale(1); }
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .caret::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 1.2em;
+      background: currentColor;
+      margin-left: 4px;
+      animation: blink 1s steps(1,end) infinite;
+      vertical-align: -0.2em;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    /* Logos marquee */
+    .logo-track { animation: scrollLogos 28s linear infinite; }
+    .logo-track:hover { animation-play-state: paused; }
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    /* Unique blob clip for hero image */
+    .blob-clip {
+      clip-path: polygon(65% 2%, 84% 10%, 96% 28%, 98% 50%, 90% 70%, 74% 86%, 52% 98%, 32% 95%, 16% 84%, 6% 66%, 4% 44%, 12% 24%, 28% 10%, 48% 4%);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 lg:h-20">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <span class="text-white font-bold text-sm lg:text-lg">JC</span>
+            </div>
+            <div class="text-xl lg:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              Jobs Calling
+            </div>
+          </div>
+        </div>
+        <!-- Navigation Links -->
+        <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          <a href="#companies" class="text-gray-600 hover:text-indigo-600 transition-all">Companies</a>
+          <a href="#interns" class="text-gray-600 hover:text-indigo-600 transition-all">Interns</a>
+          <a href="#resources" class="text-gray-600 hover:text-indigo-600 transition-all">Resources</a>
+          <a href="#about" class="text-gray-600 hover:text-indigo-600 transition-all">About Us</a>
+        </div>
+        <!-- Auth Buttons -->
+        <div class="flex items-center space-x-4 lg:space-x-6">
+          <a href="#signin" class="text-gray-600 hover:text-indigo-600 transition-all">Sign In</a>
+          <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-xl font-semibold shadow-lg ripple-btn">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-50" style="width:0%;"></div>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden gradient-bg hero-gradient text-white py-16 lg:py-24">
+    <!-- Decorative gradient blobs -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-cyan-400/40 blur-3xl animate-[floatSlow_10s_ease-in-out_infinite]"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-blue-500/40 blur-3xl animate-[floatSlow_12s_ease-in-out_infinite]"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div class="text-center lg:text-left reveal">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          Real-World Work Experience
+        </h1>
+        <p class="text-lg sm:text-xl lg:text-2xl mb-8 opacity-90 leading-relaxed">
+          Bridge the gap between education and career with virtual internships that provide genuine professional experience
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition ripple-btn">Companies: Hire</button>
+          <button class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-700 transition ripple-btn">Interns: Apply</button>
+        </div>
+        <!-- Stats -->
+        <div class="mt-10 grid grid-cols-3 gap-4 text-left max-w-lg mx-auto lg:mx-0 reveal">
+          <div class="glass rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold">20k+</div>
+            <div class="text-white/80 text-sm">Hires</div>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold">1,200+</div>
+            <div class="text-white/80 text-sm">Companies</div>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold">90%</div>
+            <div class="text-white/80 text-sm">Offer Rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="hidden lg:block reveal self-center justify-self-end">
+        <div class="relative max-w-lg lg:max-w-xl mx-auto lg:mr-0 lg:pr-6">
+          <div class="aspect-[4/3] overflow-hidden shadow-2xl border border-white/20 blob-clip">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="Real-world work experience" class="h-full w-full object-cover">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <!-- Decorative wave divider -->
+  <div class="relative -mt-10">
+    <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" class="block w-full" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,32L80,37.3C160,43,320,53,480,58.7C640,64,800,64,960,58.7C1120,53,1280,43,1360,37.3L1440,32L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#ffffff"></path>
+    </svg>
+  </div>
+
+  <!-- Programs Section -->
+  <section id="programs" class="py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Choose Your Path</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explore virtual internships across various industries and gain real-world experience</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+        <!-- Business -->
+        <div class="bg-white rounded-xl p-6 card-hover h-full flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Business meeting" class="rounded-lg mb-6 h-40 w-full object-cover">
+          <h3 class="text-xl font-semibold mb-4 text-gray-900">Business & Finance</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Gain experience in consulting, investment banking, accounting, and business development with top firms.</p>
+          <button class="text-indigo-600 font-semibold hover:text-indigo-700">Learn More →</button>
+        </div>
+        <!-- Tech -->
+        <div class="bg-white rounded-xl p-6 card-hover h-full flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Technology coding" class="rounded-lg mb-6 h-40 w-full object-cover">
+          <h3 class="text-xl font-semibold mb-4 text-gray-900">Technology</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Work on real projects in software development, data science, cybersecurity, and digital innovation.</p>
+          <button class="text-indigo-600 font-semibold hover:text-indigo-700">Learn More →</button>
+        </div>
+        <!-- Marketing -->
+        <div class="bg-white rounded-xl p-6 card-hover h-full flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Marketing team" class="rounded-lg mb-6 h-40 w-full object-cover">
+          <h3 class="text-xl font-semibold mb-4 text-gray-900">Marketing & Media</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Create campaigns, analyze market trends, and develop content strategies with leading brands.</p>
+          <button class="text-indigo-600 font-semibold hover:text-indigo-700">Learn More →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Leaders Section -->
+  <section id="companies" class="py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our programs are built in collaboration with top global companies across various industries</p>
+      </div>
+      
+      
+
+      <!-- Auto-scrolling logo carousel -->
+      <div class="overflow-hidden py-6">
+        <div class="logo-track flex items-center gap-12 w-[200%]">
+          <div class="flex items-center gap-12 w-1/2">
+            <img src="https://logo.clearbit.com/google.com" alt="Google" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/apple.com" alt="Apple" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/netflix.com" alt="Netflix" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/amazon.com" alt="Amazon" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/meta.com" alt="Meta" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/tesla.com" alt="Tesla" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://logo.clearbit.com/spotify.com" alt="Spotify" class="h-10 opacity-70 hover:opacity-100 transition-opacity">
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="flex items-center gap-12 w-1/2" aria-hidden="true">
+            <img src="https://logo.clearbit.com/google.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/microsoft.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/apple.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/netflix.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/amazon.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/meta.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/tesla.com" alt="" class="h-10 opacity-70">
+            <img src="https://logo.clearbit.com/spotify.com" alt="" class="h-10 opacity-70">
+          </div>
+        </div>
+      </div>
+
+      <!-- Added proper separation and improved layout for collaboration section -->
+      <div class="border-t border-gray-200 pt-16 reveal bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div class="text-center mb-12">
+          <h3 class="text-2xl lg:text-3xl font-semibold text-gray-900 mb-4">Real Collaboration, Real Results</h3>
+          <p class="text-gray-600 max-w-3xl mx-auto">Experience authentic workplace dynamics through our immersive virtual internship platform, designed to mirror real professional environments.</p>
+        </div>
+        
+        <div class="flex justify-center">
+          <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+               alt="Team collaboration in modern office environment" 
+               class="rounded-2xl shadow-xl w-full max-w-5xl object-cover h-64 lg:h-96">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
+        <p class="text-lg text-gray-600">Hear from students who transformed their careers</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sarah Johnson" class="rounded-full w-16 h-16 object-cover mb-4">
+          <div class="font-semibold text-gray-900">Sarah Johnson</div>
+          <div class="text-gray-600 text-sm mb-4">Business Student</div>
+          <div class="flex items-center gap-2 mb-4 opacity-70">
+            <img src="https://logo.clearbit.com/mckinsey.com" alt="Company" class="h-4">
+            <span class="text-xs text-gray-500">McKinsey</span>
+          </div>
+          <p class="text-gray-600 flex-grow">"The virtual internship gave me real consulting experience. I landed a full-time offer at a top firm!"</p>
+          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1603415526960-f8f0a42e3f8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mike Chen" class="rounded-full w-16 h-16 object-cover mb-4">
+          <div class="font-semibold text-gray-900">Mike Chen</div>
+          <div class="text-gray-600 text-sm mb-4">Computer Science</div>
+          <div class="flex items-center gap-2 mb-4 opacity-70">
+            <img src="https://logo.clearbit.com/google.com" alt="Company" class="h-4">
+            <span class="text-xs text-gray-500">Google</span>
+          </div>
+          <p class="text-gray-600 flex-grow">"Working on real tech projects remotely prepared me perfectly for the modern workplace."</p>
+          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+          <img src="https://images.unsplash.com/photo-1607746881983-4f3f90d0a7a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Anna Rodriguez" class="rounded-full w-16 h-16 object-cover mb-4">
+          <div class="font-semibold text-gray-900">Anna Rodriguez</div>
+          <div class="text-gray-600 text-sm mb-4">Marketing Major</div>
+          <div class="flex items-center gap-2 mb-4 opacity-70">
+            <img src="https://logo.clearbit.com/spotify.com" alt="Company" class="h-4">
+            <span class="text-xs text-gray-500">Spotify</span>
+          </div>
+          <p class="text-gray-600 flex-grow">"I built an amazing portfolio and network. The experience was invaluable for my career."</p>
+          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-24 gradient-bg text-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
+      <p class="text-lg mb-8 opacity-90">Join thousands of students who have launched successful careers through virtual internships</p>
+      <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition">Apply Now - It's Free</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+          <div class="text-xl font-bold mb-4">Jobs Calling</div>
+          <p class="text-gray-400 text-sm">Connecting students with real-world work experience through innovative virtual programs.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-4">Programs</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#">Business & Finance</a></li>
+            <li><a href="#">Technology</a></li>
+            <li><a href="#">Marketing & Media</a></li>
+            <li><a href="#">All Programs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-4">Company</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-4">Support</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Student Resources</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <a href="#" aria-label="Twitter" class="hover:text-white">✦</a>
+          <a href="#" aria-label="LinkedIn" class="hover:text-white">✧</a>
+          <a href="#" aria-label="Spotify" class="hover:text-white" title="Spotify">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.44 14.7a.75.75 0 01-1.03.26c-2.82-1.72-6.37-2.11-10.55-1.17a.75.75 0 01-.32-1.46c4.57-1.02 8.5-.58 11.6 1.29.36.22.47.69.26 1.04zm1.38-3.03a.9.9 0 01-1.24.31c-3.23-1.96-8.16-2.53-11.97-1.41a.9.9 0 11-.51-1.73c4.24-1.25 9.6-.62 13.25 1.59.43.26.57.83.31 1.24zm.13-3.17a1.05 1.05 0 01-1.46.36C12.9 8.43 7.6 7.98 4.06 9.01a1.05 1.05 0 01-.6-2.02c3.98-1.18 9.88-.67 13.86 1.7.5.29.67.93.36 1.38z"/>
+            </svg>
+          </a>
+        </div>
+        <p class="text-sm">&copy; 2024 Jobs Calling. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Simple scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const onIntersect = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+    const observer = new IntersectionObserver(onIntersect, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+    
+    // Scroll progress
+    const progressBar = document.getElementById('scroll-progress');
+    const updateProgress = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = progress + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // Ripple effect
+    document.querySelectorAll('.ripple-btn').forEach(btn => {
+      btn.style.position = 'relative';
+      btn.style.overflow = 'hidden';
+      btn.addEventListener('click', function(e) {
+        const circle = document.createElement('span');
+        const diameter = Math.max(this.clientWidth, this.clientHeight);
+        const radius = diameter / 2;
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${e.clientX - this.getBoundingClientRect().left - radius}px`;
+        circle.style.top = `${e.clientY - this.getBoundingClientRect().top - radius}px`;
+        circle.style.position = 'absolute';
+        circle.style.borderRadius = '50%';
+        circle.style.background = 'rgba(255,255,255,0.35)';
+        circle.style.transform = 'scale(0)';
+        circle.style.animation = 'ripple 600ms ease-out';
+        circle.style.pointerEvents = 'none';
+        this.appendChild(circle);
+        circle.addEventListener('animationend', () => circle.remove());
+      });
+    });
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `@keyframes ripple { to { transform: scale(4); opacity: 0; } }`;
+    document.head.appendChild(rippleStyle);
+
+    // Tilt effect
+    const tiltCards = document.querySelectorAll('.tilt');
+    tiltCards.forEach(card => {
+      const dampen = 20;
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateY = ((x - rect.width / 2) / rect.width) * dampen;
+        const rotateX = -((y - rect.height / 2) / rect.height) * dampen;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        card.style.transition = 'transform 0.06s ease';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        card.style.transition = 'transform 0.3s ease';
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.willChange = 'transform';
+      });
+    });
+  </script>
+</body>
+</html>

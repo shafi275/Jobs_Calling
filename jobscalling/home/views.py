@@ -150,6 +150,17 @@ def candidate_dashboard(request):
     return render(request, "CandidateDashboard.html")
 
 
+# Candidate Profile (view)
+@login_required
+def candidate_profile(request):
+    # Load candidate profile if exists
+    try:
+        profile = CandidateProfile.objects.get(user=request.user)
+    except CandidateProfile.DoesNotExist:
+        profile = None
+    return render(request, "CandidateProfile.html", {"profile": profile})
+
+
 # Company Dashboard (login required)
 @login_required
 def company_dashboard(request):

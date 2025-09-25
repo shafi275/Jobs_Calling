@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import CandidateProfile, CompanyProfile
+from django.contrib.auth import authenticate, login
 
 # Candidate Registration
 def candidate_register(request):
@@ -40,7 +41,7 @@ def candidate_register(request):
         )
 
         messages.success(request, "Registration successful! Please login.")
-        return redirect("login")
+        return redirect("candidate_login")
 
     return render(request, "candidate_register.html")
 
@@ -88,3 +89,21 @@ def company_register(request):
         return redirect("login")
 
     return render(request, "company_register.html")
+# Candidate Login
+def candidate_login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        # Authenticate using email as username
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Logged in successfully!")
+            return redirect("candidate_dashboard")  # replace with your dashboard route
+        else:
+            messages.error(request, "Invalid email or password.")
+            return redirect("candidate_login")
+
+    return render(request, "CandidateLogin.html")

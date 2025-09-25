@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -12,10 +9,10 @@ from django.contrib.auth.decorators import login_required
 # Candidate Registration
 def candidate_register(request):
     if request.method == "POST":
-        full_name = request.POST.get("fullName")
+        full_name = request.POST.get("full_name")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        confirm_password = request.POST.get("confirmPassword")
+        confirm_password = request.POST.get("confirm_password")
         terms = request.POST.get("terms")
 
         # Check password match
@@ -23,18 +20,19 @@ def candidate_register(request):
             messages.error(request, "Passwords do not match.")
             return redirect("candidate_register")
 
-        # Create User
+        # Check if email already exists
         if User.objects.filter(username=email).exists():
             messages.error(request, "Email already registered.")
             return redirect("candidate_register")
 
+        # Create user
         user = User.objects.create(
             username=email,
             email=email,
             password=make_password(password),
         )
 
-        # Candidate profile
+        # Create candidate profile
         CandidateProfile.objects.create(
             user=user,
             full_name=full_name,
@@ -44,7 +42,7 @@ def candidate_register(request):
         messages.success(request, "Registration successful! Please login.")
         return redirect("candidate_login")
 
-    return render(request, "candidate_register.html")
+    return render(request, "CandidateRegistration.html")
 
 
 # Company Registration
@@ -58,23 +56,27 @@ def company_register(request):
         phone_number = request.POST.get("phoneNumber")
         website = request.POST.get("website")
         password = request.POST.get("password")
-        confirm_password = request.POST.get("confirmPassword")
+        confirm_password = request.POST.get("confirm_password")
         terms = request.POST.get("terms")
 
+        # Check password match
         if password != confirm_password:
             messages.error(request, "Passwords do not match.")
             return redirect("company_register")
 
+        # Check if email already exists
         if User.objects.filter(username=email).exists():
             messages.error(request, "Email already registered.")
             return redirect("company_register")
 
+        # Create user
         user = User.objects.create(
             username=email,
             email=email,
             password=make_password(password),
         )
 
+        # Create company profile
         CompanyProfile.objects.create(
             user=user,
             company_name=company_name,
@@ -87,9 +89,11 @@ def company_register(request):
         )
 
         messages.success(request, "Company registered! Please login.")
-        return redirect("login")
+        return redirect("company_login")
 
-    return render(request, "company_register.html")
+    return render(request, "CompanyRegistration.html")
+
+
 # Candidate Login
 def candidate_login(request):
     if request.method == "POST":
@@ -102,12 +106,14 @@ def candidate_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully!")
-            return redirect("CandidateDashboard.html")  # replace with your dashboard route
+            return redirect('/candidate/dashboard/')
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("candidate_login")
 
     return render(request, "CandidateLogin.html")
+
+
 # Company Login
 def company_login(request):
     if request.method == "POST":
@@ -120,25 +126,31 @@ def company_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Company logged in successfully!")
-            return redirect("CompanyDashboard.html")  # Replace with your company dashboard URL
+            return redirect("company_dashboard")
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("company_login")
 
     return render(request, "CompanyLogin.html")
 
-def landing_page(request):
-    return render(request, "landing.html")  
 
+# Landing Page
+def landing_page(request):
+    return render(request, "landing.html")
+
+
+# Common Sign Up Page (choose Student/Company)
 def common_signup(request):
     return render(request, "CommonSignUp.html")
 
-@login_required
 
+# Candidate Dashboard (login required)
+@login_required
 def candidate_dashboard(request):
     return render(request, "CandidateDashboard.html")
 
-@login_required
 
+# Company Dashboard (login required)
+@login_required
 def company_dashboard(request):
-    return render(request, "CompanyDashboard.html")  
+    return render(request, "CompanyDashboard.html")

@@ -334,7 +334,7 @@
       <div class="text-center">
         <p class="text-white/70 text-sm">
           Don't have an account? 
-          <a href="#" class="text-white hover:text-white/80 underline font-medium transition-colors">Sign up</a>
+          <a href="{% url 'candidate_register' %}" class="text-white hover:text-white/80 underline font-medium transition-colors">Sign up</a>
         </p>
       </div>
     </div>
@@ -343,47 +343,31 @@
   <script>
     // Form Validation and Submission
     document.getElementById('signinForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
       const submitBtn = document.getElementById('submitBtn');
       const btnText = document.getElementById('btnText');
       const successMessage = document.getElementById('successMessage');
-      
+
       // Get form values
-      const email = document.getElementById('email').value;
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      
+
       // Basic validation
       if (!email || !password) {
+        e.preventDefault();
         showNotification('Please fill in all fields', 'error');
         return;
       }
-      
+
       if (!isValidEmail(email)) {
+        e.preventDefault();
         showNotification('Please enter a valid email address', 'error');
         return;
       }
-      
-      // Show loading state
+
+      // Show loading state and allow the form to submit to the backend
       submitBtn.disabled = true;
       btnText.innerHTML = '<div class="loading-spinner"></div>Signing in...';
-      
-      // Simulate API call
-      setTimeout(() => {
-        // Reset button
-        submitBtn.disabled = false;
-        btnText.textContent = 'Sign In';
-        
-        // Show success
-        successMessage.classList.remove('hidden');
-        successMessage.classList.add('success-bounce');
-        
-        // Clear form
-        document.getElementById('signinForm').reset();
-        
-        showNotification('Welcome back! Redirecting...', 'success');
-        
-      }, 1500);
+      // do NOT call e.preventDefault() here - when inputs are valid the browser will post the form
     });
 
     // Email validation

@@ -206,6 +206,37 @@
           </label>
         </div>
 
+        <!-- Password -->
+        <div class="input-group relative">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder=" "
+            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
+            required
+            minlength="6"
+          >
+          <label for="password" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
+            Password
+          </label>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group relative">
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirm_password"
+            placeholder=" "
+            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
+            required
+          >
+          <label for="confirmPassword" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
+            Confirm Password
+          </label>
+        </div>
+
         <!-- Terms Checkbox -->
         <div class="flex items-start space-x-3">
           <input 
@@ -232,7 +263,7 @@
         <div class="text-center pt-4">
           <p class="text-gray-600">
             Already have an account? 
-            <a href="{% url 'company_register'%}" class="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
+            <a href="{% url 'company_login' %}" class="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
               Sign In
             </a>
           </p>
@@ -252,37 +283,24 @@
   </div>
 
   <script>
-    // Form submission handler
+    // Form submission handler: validate on client, then submit to server so backend can redirect
     document.getElementById('companyForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form data
-      const formData = {
-        companyName: document.getElementById('companyName').value,
-        industry: document.getElementById('industry').value,
-        companySize: document.getElementById('companySize').value,
-        companyEmail: document.getElementById('companyEmail').value,
-        contactPerson: document.getElementById('contactPerson').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
-        website: document.getElementById('website').value
-      };
-      
-      // Simulate form submission
-      const submitButton = e.target.querySelector('button[type="submit"]');
-      const originalText = submitButton.textContent;
-      
-      // Show loading state
+      // perform client-side validation (HTML5 required attributes already enforce most rules)
+      const form = e.target;
+
+      // If the form is invalid according to HTML5, let the browser show validation UI
+      if (!form.checkValidity()) {
+        // Allow browser to display built-in validation messages
+        return;
+      }
+
+      // Show a quick loading state, then submit normally so the server-side view runs and can redirect
+      const submitButton = form.querySelector('button[type="submit"]');
       submitButton.textContent = 'Creating Account...';
       submitButton.disabled = true;
-      
-      // Simulate API call
-      setTimeout(() => {
-        // Hide form and show success message
-        document.getElementById('companyForm').style.display = 'none';
-        document.getElementById('successMessage').classList.remove('hidden');
-        
-        console.log('Company registration data:', formData);
-      }, 2000);
+
+      // Allow the normal POST to proceed to the server
+      // No e.preventDefault() here -- we want the form to be posted
     });
 
     // Enhanced floating label behavior

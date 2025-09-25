@@ -328,7 +328,7 @@
       <div class="text-center mt-8">
         <p class="text-white text-sm font-medium">
           Already have an account? 
-          <a href="{% url 'candidate_register' %}" class="text-yellow-300 hover:text-yellow-200 underline transition-colors font-semibold">
+          <a href="{% url 'candidate_login' %}" class="text-yellow-300 hover:text-yellow-200 underline transition-colors font-semibold">
                Sign In
              </a>
         </p>
@@ -342,99 +342,86 @@
       const particlesContainer = document.getElementById('particles');
       
       function createParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
+       const particle = document.createElement('div');
+       particle.className = 'particle';
         
-        // Random size between 2-6px
-        const size = Math.random() * 4 + 2;
+         Random size between 2-6px
+      const size = Math.random() * 4 + 2;
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         
-        // Random horizontal position
+         Random horizontal position
         particle.style.left = Math.random() * 100 + '%';
         
-        // Random animation duration
+         Random animation duration
         particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
         
-        // Random delay
+         Random delay
         particle.style.animationDelay = Math.random() * 5 + 's';
         
         particlesContainer.appendChild(particle);
         
-        // Remove particle after animation
+         Remove particle after animation
         setTimeout(() => {
           if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
+           particle.parentNode.removeChild(particle);
           }
         }, 20000);
-      }
+    cdn.jsdelivr.net/npm/bootstrap  }
       
-      // Create initial particles
+       Create initial particles
       for (let i = 0; i < 15; i++) {
-        setTimeout(createParticle, i * 200);
+       setTimeout(createParticle, i * 200);
       }
       
-      // Continue creating particles
+       Continue creating particles
       setInterval(createParticle, 800);
     }
 
     // Form Validation and Submission
     document.getElementById('signupForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
+      // perform client-side validation and only submit if valid
       const submitBtn = document.getElementById('submitBtn');
       const btnText = document.getElementById('btnText');
-      const successMessage = document.getElementById('successMessage');
-      
+
       // Get form values
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
       const terms = document.getElementById('terms').checked;
-      
-      // Validation
+
+      // Basic Validation
       if (!fullName || !email || !password || !confirmPassword) {
+        e.preventDefault();
         showNotification('Please fill in all fields', 'error');
         return;
       }
-      
+
       if (password !== confirmPassword) {
+        e.preventDefault();
         showNotification('Passwords do not match', 'error');
         return;
       }
-      
+
       if (password.length < 6) {
+        e.preventDefault();
         showNotification('Password must be at least 6 characters', 'error');
         return;
       }
-      
+
       if (!terms) {
+        e.preventDefault();
         showNotification('Please accept the terms and conditions', 'error');
         return;
       }
-      
-      // Show loading state
-      submitBtn.disabled = true;
+
+      // If we reach here, allow the form to submit to the backend
+      // Show loading state while the request is in-flight
       btnText.innerHTML = '<div class="loading-spinner"></div>Processing...';
-      
-      // Simulate API call
-      setTimeout(() => {
-        // Reset button
-        submitBtn.disabled = false;
-        btnText.textContent = 'Initialize Journey';
-        
-        // Show success
-        successMessage.classList.remove('hidden');
-        successMessage.classList.add('success-pulse');
-        
-        // Clear form
-        document.getElementById('signupForm').reset();
-        
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-        
-      }, 2000);
+      submitBtn.disabled = true;
+
+      // Note: don't call e.preventDefault(); we want the browser to submit the form
     });
 
     // Notification System

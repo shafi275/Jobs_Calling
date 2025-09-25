@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from .models import CandidateProfile, CompanyProfile
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # Candidate Registration
 def candidate_register(request):
@@ -107,6 +108,7 @@ def candidate_login(request):
             return redirect("candidate_login")
 
     return render(request, "CandidateLogin.html")
+# Company Login
 def company_login(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -118,7 +120,7 @@ def company_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Company logged in successfully!")
-            return redirect("CompanyDahboard.html")  # Replace with your company dashboard URL
+            return redirect("CompanyDashboard.html")  # Replace with your company dashboard URL
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("company_login")
@@ -130,3 +132,13 @@ def landing_page(request):
 
 def common_signup(request):
     return render(request, "CommonSignUp.html")
+
+@login_required
+
+def candidate_dashboard(request):
+    return render(request, "CandidateDashboard.html")
+
+@login_required
+
+def company_dashboard(request):
+    return render(request, "CompanyDashboard.html")  

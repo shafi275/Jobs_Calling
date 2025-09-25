@@ -107,3 +107,20 @@ def candidate_login(request):
             return redirect("candidate_login")
 
     return render(request, "CandidateLogin.html")
+def company_login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        # Authenticate using email as username
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Company logged in successfully!")
+            return redirect("company_dashboard")  # Replace with your company dashboard URL
+        else:
+            messages.error(request, "Invalid email or password.")
+            return redirect("company_login")
+
+    return render(request, "CompanyLogin.html")

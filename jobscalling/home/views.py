@@ -126,7 +126,7 @@ def company_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Company logged in successfully!")
-            return redirect("company_dashboard")
+            return redirect('/company/dashboard/')
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("company_login")

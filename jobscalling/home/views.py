@@ -101,7 +101,7 @@ def candidate_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully!")
-            return redirect("candidate_dashboard")  # replace with your dashboard route
+            return redirect("CandidateDashboard.html")  # replace with your dashboard route
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("candidate_login")
@@ -118,9 +118,15 @@ def company_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Company logged in successfully!")
-            return redirect("company_dashboard")  # Replace with your company dashboard URL
+            return redirect("CompanyDahboard.html")  # Replace with your company dashboard URL
         else:
             messages.error(request, "Invalid email or password.")
             return redirect("company_login")
 
     return render(request, "CompanyLogin.html")
+
+def landing_page(request):
+    return render(request, "landing.html")  
+
+def common_signup(request):
+    return render(request, "CommonSignUp.html")

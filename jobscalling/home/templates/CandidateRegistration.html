@@ -247,12 +247,14 @@
       </div>
 
       <!-- Sign Up Form -->
-      <form id="signupForm" class="space-y-6">
+      <form id="signupForm" class="space-y-6" method="POST" action="{% url 'candidate_register' %}">
+        {% csrf_token %}
         <div>
           <input 
             type="text" 
             id="fullName"
             placeholder="Full Name" 
+            name="full_name"
             class="modern-input w-full"
             required
           >
@@ -262,6 +264,7 @@
           <input 
             type="email" 
             id="email"
+            name="email"
             placeholder="Email Address" 
             class="modern-input w-full"
             required
@@ -272,6 +275,7 @@
           <input 
             type="password" 
             id="password"
+            name="password"
             placeholder="Create Password" 
             class="modern-input w-full"
             required
@@ -283,6 +287,7 @@
           <input 
             type="password" 
             id="confirmPassword"
+            name="confirm_password"
             placeholder="Confirm Password" 
             class="modern-input w-full"
             required
@@ -294,6 +299,7 @@
           <input 
             type="checkbox" 
             id="terms" 
+            name="terms"
             class="w-5 h-5 rounded border-2 border-white/40 bg-white/20 checked:bg-blue-500"
             required
           >

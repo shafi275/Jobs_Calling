@@ -81,13 +81,15 @@
 
     <!-- Form Container -->
     <div class="glass-effect rounded-2xl p-8 shadow-2xl">
-      <form id="companyForm" class="space-y-6">
+      <form id="companyForm" class="space-y-6" method="POST" action="{% url 'company_register' %}">
+        {% csrf_token %}    
         
         <!-- Company Name -->
         <div class="input-group relative">
           <input 
             type="text" 
             id="companyName" 
+            name="companyName"
             placeholder=" " 
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
             required
@@ -101,6 +103,7 @@
         <div class="input-group relative">
           <select 
             id="industry" 
+            name="industry"
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none appearance-none"
             required
           >
@@ -126,6 +129,7 @@
         <div class="input-group relative">
           <select 
             id="companySize" 
+            name="companySize"
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none appearance-none"
             required
           >
@@ -148,6 +152,7 @@
           <input 
             type="email" 
             id="companyEmail" 
+            name="companyEmail"
             placeholder=" " 
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
             required
@@ -162,6 +167,7 @@
           <input 
             type="text" 
             id="contactPerson" 
+            name="contactPerson"
             placeholder=" " 
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
             required
@@ -176,6 +182,7 @@
           <input 
             type="tel" 
             id="phoneNumber" 
+            name="phoneNumber"
             placeholder=" " 
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
             required
@@ -190,6 +197,7 @@
           <input 
             type="url" 
             id="website" 
+            name="website"
             placeholder=" " 
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
           >
@@ -203,6 +211,7 @@
           <input 
             type="checkbox" 
             id="terms" 
+            name="terms"
             class="mt-1 w-5 h-5 text-indigo-600 border-2 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
             required
           >

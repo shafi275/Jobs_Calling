@@ -233,50 +233,83 @@
   <!-- Testimonials -->
   <section id="testimonials" class="py-16 lg:py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
-        <p class="text-lg text-gray-600">Hear from students who transformed their careers</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-        <!-- Testimonial 1 -->
-        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-          <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sarah Johnson" class="rounded-full w-16 h-16 object-cover mb-4">
-          <div class="font-semibold text-gray-900">Sarah Johnson</div>
-          <div class="text-gray-600 text-sm mb-4">Business Student</div>
-          <div class="flex items-center gap-2 mb-4 opacity-70">
-            <img src="https://logo.clearbit.com/mckinsey.com" alt="Company" class="h-4">
-            <span class="text-xs text-gray-500">McKinsey</span>
-          </div>
-          <p class="text-gray-600 flex-grow">"The virtual internship gave me real consulting experience. I landed a full-time offer at a top firm!"</p>
-          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
+            <p class="text-lg text-gray-600">Hear from those who transformed their careers and businesses</p>
         </div>
-        <!-- Testimonial 2 -->
-        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-          <img src="https://images.unsplash.com/photo-1603415526960-f8f0a42e3f8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mike Chen" class="rounded-full w-16 h-16 object-cover mb-4">
-          <div class="font-semibold text-gray-900">Mike Chen</div>
-          <div class="text-gray-600 text-sm mb-4">Computer Science</div>
-          <div class="flex items-center gap-2 mb-4 opacity-70">
-            <img src="https://logo.clearbit.com/google.com" alt="Company" class="h-4">
-            <span class="text-xs text-gray-500">Google</span>
-          </div>
-          <p class="text-gray-600 flex-grow">"Working on real tech projects remotely prepared me perfectly for the modern workplace."</p>
-          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+
+        <div class="flex justify-center mb-12 reveal">
+            <div class="inline-flex rounded-xl p-1 shadow-xl bg-white border border-gray-200">
+                <button id="student-tab" onclick="showTestimonials('students')" class="tab-btn active bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold transition shadow-lg">
+                    Students 🧑‍🎓
+                </button>
+                <button id="company-tab" onclick="showTestimonials('companies')" class="tab-btn text-gray-600 hover:text-indigo-600 px-6 py-2 rounded-lg font-semibold transition">
+                    Companies 🏢
+                </button>
+            </div>
         </div>
-        <!-- Testimonial 3 -->
-        <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-          <img src="https://images.unsplash.com/photo-1607746881983-4f3f90d0a7a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Anna Rodriguez" class="rounded-full w-16 h-16 object-cover mb-4">
-          <div class="font-semibold text-gray-900">Anna Rodriguez</div>
-          <div class="text-gray-600 text-sm mb-4">Marketing Major</div>
-          <div class="flex items-center gap-2 mb-4 opacity-70">
-            <img src="https://logo.clearbit.com/spotify.com" alt="Company" class="h-4">
-            <span class="text-xs text-gray-500">Spotify</span>
-          </div>
-          <p class="text-gray-600 flex-grow">"I built an amazing portfolio and network. The experience was invaluable for my career."</p>
-          <div class="flex text-yellow-400 mt-3">★★★★★</div>
+
+        <div id="student-content" class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal testimonial-content active-content">
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sarah Johnson" class="rounded-full w-16 h-16 object-cover mb-4">
+                <div class="font-semibold text-gray-900">Sarah Johnson</div>
+                <div class="text-gray-600 text-sm mb-4">Business Student</div>
+                <div class="flex items-center gap-2 mb-4 opacity-70">
+                    <img src="https://logo.clearbit.com/mckinsey.com" alt="Company" class="h-4">
+                    <span class="text-xs text-gray-500">McKinsey Virtual</span>
+                </div>
+                <p class="text-gray-600 flex-grow">"The virtual internship gave me real consulting experience. I landed a full-time offer at a top firm!"</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://images.unsplash.com/photo-1603415526960-f8f0a42e3f8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mike Chen" class="rounded-full w-16 h-16 object-cover mb-4">
+                <div class="font-semibold text-gray-900">Mike Chen</div>
+                <div class="text-gray-600 text-sm mb-4">Computer Science</div>
+                <div class="flex items-center gap-2 mb-4 opacity-70">
+                    <img src="https://logo.clearbit.com/google.com" alt="Company" class="h-4">
+                    <span class="text-xs text-gray-500">Google Career Prep</span>
+                </div>
+                <p class="text-gray-600 flex-grow">"Working on real tech projects remotely prepared me perfectly for the modern workplace."</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://images.unsplash.com/photo-1607746881983-4f3f90d0a7a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Anna Rodriguez" class="rounded-full w-16 h-16 object-cover mb-4">
+                <div class="font-semibold text-gray-900">Anna Rodriguez</div>
+                <div class="text-gray-600 text-sm mb-4">Marketing Major</div>
+                <div class="flex items-center gap-2 mb-4 opacity-70">
+                    <img src="https://logo.clearbit.com/spotify.com" alt="Company" class="h-4">
+                    <span class="text-xs text-gray-500">Spotify Digital</span>
+                </div>
+                <p class="text-gray-600 flex-grow">"I built an amazing portfolio and network. The experience was invaluable for my career."</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
         </div>
-      </div>
+
+        <div id="company-content" class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal testimonial-content" style="display: none;">
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft Logo" class="w-16 h-16 object-contain mb-4">
+                <div class="font-semibold text-gray-900">Sarah Lee</div>
+                <div class="text-gray-600 text-sm mb-4">HR Director, Microsoft</div>
+                <p class="text-gray-600 flex-grow">"Jobs Calling is our pipeline for pre-vetted, high-potential talent. It significantly cuts down our hiring time."</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://logo.clearbit.com/amazon.com" alt="Amazon Logo" class="w-16 h-16 object-contain mb-4">
+                <div class="font-semibold text-gray-900">David G.</div>
+                <div class="text-gray-600 text-sm mb-4">VP of Operations, Amazon</div>
+                <p class="text-gray-600 flex-grow">"The virtual program allowed us to evaluate skills on real-world tasks. The quality of hires has been exceptional."</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
+                <img src="https://logo.clearbit.com/salesforce.com" alt="Salesforce Logo" class="w-16 h-16 object-contain mb-4">
+                <div class="font-semibold text-gray-900">Maria P.</div>
+                <div class="text-gray-600 text-sm mb-4">Talent Acquisition, Salesforce</div>
+                <p class="text-gray-600 flex-grow">"We've scaled our remote internship program effortlessly. A truly seamless platform for finding future leaders."</p>
+                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+            </div>
+        </div>
     </div>
-  </section>
+</section>
 
   <!-- CTA Section -->
   <section class="py-16 lg:py-24 gradient-bg text-white">
@@ -408,6 +441,31 @@
         card.style.willChange = 'transform';
       });
     });
+    // Testimonials Toggle Function
+    window.showTestimonials = (type) => {
+        const studentContent = document.getElementById('student-content');
+        const companyContent = document.getElementById('company-content');
+        const studentTab = document.getElementById('student-tab');
+        const companyTab = document.getElementById('company-tab');
+
+        // Reset all button styles
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
+            btn.classList.add('text-gray-600', 'hover:text-indigo-600');
+        });
+        
+        // Hide all content blocks
+        studentContent.style.display = 'none';
+        companyContent.style.display = 'none';
+
+        if (type === 'students') {
+            studentContent.style.display = 'grid'; // Show student content
+            studentTab.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
+        } else if (type === 'companies') {
+            companyContent.style.display = 'grid'; // Show company content
+            companyTab.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
+        }
+    };
   </script>
 </body>
 </html>

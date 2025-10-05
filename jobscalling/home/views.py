@@ -39,8 +39,9 @@ def candidate_register(request):
             agree_terms=True if terms else False,
         )
 
-        messages.success(request, "Registration successful! Please login.")
-        return redirect("candidate_login")
+        # after successful creation:
+        messages.success(request, "Registered successfully. Please sign in.")
+        return redirect('/candidate/login/')
 
     return render(request, "CandidateRegistration.html")
 
@@ -89,7 +90,8 @@ def company_register(request):
         )
 
         messages.success(request, "Company registered! Please login.")
-        return redirect("company_login")
+        return redirect('/company/login/')  # explicit path; preserves existing UI
+
 
     return render(request, "CompanyRegistration.html")
 
@@ -149,7 +151,6 @@ def common_signup(request):
 def candidate_dashboard(request):
     return render(request, "CandidateDashboard.html")
 
-
 # Candidate Profile (view)
 @login_required
 def candidate_profile(request):
@@ -165,3 +166,5 @@ def candidate_profile(request):
 @login_required
 def company_dashboard(request):
     return render(request, "CompanyDashboard.html")
+
+

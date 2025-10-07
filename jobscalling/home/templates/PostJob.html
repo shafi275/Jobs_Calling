@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a New Job | Company Portal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for professional appearance */
+        :root {
+            --primary-color: #4f46e5; /* Indigo-600 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .form-input-group label {
+            font-weight: 500;
+            color: #374151; /* Gray-700 */
+            margin-bottom: 4px;
+            display: block;
+        }
+        .form-input-group input:focus, 
+        .form-input-group textarea:focus, 
+        .form-input-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex justify-center items-start">
+
+    <!-- Main Content Card -->
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-2xl p-6 md:p-10 mt-8">
+        
+        <!-- Header -->
+        <header class="mb-8 border-b pb-4">
+            <h1 class="text-3xl font-extrabold text-gray-900 leading-tight">Post a New Job</h1>
+            <p class="text-gray-500 mt-1">Fill out the details below to advertise your opening to candidates.</p>
+        </header>
+
+        <!-- Django Message Area (Simulated) -->
+        <!-- In your Django template, you would replace this block with {% if messages %} loop -->
+        <div id="message-container" class="hidden mb-6">
+            <div class="bg-indigo-100 border border-indigo-400 text-indigo-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline"> Job draft saved successfully.</span>
+            </div>
+        </div>
+
+        <!-- Job Posting Form -->
+        <form id="jobPostingForm" method="POST" action="{% url 'post_job' %}">
+            <!-- CSRF Token (Essential in Django) -->
+            <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"> -->
+
+            <!-- Job Title and Location -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="form-input-group">
+                    <label for="id_title">Job Title</label>
+                    <input type="text" id="id_title" name="title" required
+                           class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 transition duration-150">
+                </div>
+                <div class="form-input-group">
+                    <label for="id_location">Location</label>
+                    <input type="text" id="id_location" name="location" required
+                           placeholder="e.g., Remote, San Francisco, CA"
+                           class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 transition duration-150">
+                </div>
+            </div>
+
+            <!-- Job Type and Deadline -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="form-input-group">
+                    <label for="id_job_type">Job Type</label>
+                    <select id="id_job_type" name="job_type" required
+                            class="w-full p-3 border border-gray-300 rounded-lg appearance-none bg-white text-gray-700 transition duration-150">
+                        <!-- Options map directly to the JOB_TYPES in your model -->
+                        <option value="FT">Full-time</option>
+                        <option value="PT">Part-time</option>
+                        <option value="CT">Contract</option>
+                        <option value="IT">Internship</option>
+                    </select>
+                </div>
+                <div class="form-input-group">
+                    <label for="id_application_deadline">Application Deadline</label>
+                    <input type="date" id="id_application_deadline" name="application_deadline"
+                           class="w-full p-3 border border-gray-300 rounded-lg text-gray-700 transition duration-150">
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-input-group mb-6">
+                <label for="id_description">Job Description</label>
+                <textarea id="id_description" name="description" required rows="5"
+                          class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 resize-y transition duration-150"
+                          placeholder="Provide a detailed overview of the role, responsibilities, and team culture."></textarea>
+            </div>
+
+            <!-- Salary Range -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="form-input-group">
+                    <label for="id_min_salary">Minimum Annual Salary ($)</label>
+                    <input type="number" id="id_min_salary" name="min_salary" min="0" placeholder="e.g., 70000"
+                           class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 transition duration-150">
+                </div>
+                <div class="form-input-group">
+                    <label for="id_max_salary">Maximum Annual Salary ($)</label>
+                    <input type="number" id="id_max_salary" name="max_salary" min="0" placeholder="e.g., 95000"
+                           class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 transition duration-150">
+                </div>
+            </div>
+
+            <!-- Requirements/Skills -->
+            <div class="form-input-group mb-6">
+                <label for="id_requirements">Requirements &amp; Qualifications</label>
+                <textarea id="id_requirements" name="requirements" required rows="3"
+                          class="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-700 resize-y transition duration-150"
+                          placeholder="List essential skills, years of experience, and required education."></textarea>
+            </div>
+
+            <!-- Active Status Checkbox -->
+            <div class="flex items-center mb-8">
+                <input id="id_is_active" name="is_active" type="checkbox" checked
+                       class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                <label for="id_is_active" class="ml-3 text-sm font-medium text-gray-700">
+                    Job is **Active** and accepting applications immediately.
+                </label>
+            </div>
+
+
+            <!-- Submit Button -->
+            <div class="flex justify-end space-x-4">
+                <button type="button" 
+                        class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 font-semibold transition duration-150 shadow-sm">
+                    Save Draft
+                </button>
+                <button type="submit" 
+                        class="px-8 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Post Job Now
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        // Simple client-side validation example (optional)
+        document.getElementById('jobPostingForm').addEventListener('submit', function(event) {
+            const minSalary = document.getElementById('id_min_salary').value;
+            const maxSalary = document.getElementById('id_max_salary').value;
+
+            if (minSalary && maxSalary && parseInt(minSalary) > parseInt(maxSalary)) {
+                event.preventDefault();
+                alert("The Minimum Salary cannot be greater than the Maximum Salary.");
+            }
+            
+            // Note: Django handles actual form validation on the server side
+        });
+    </script>
+</body>
+</html>

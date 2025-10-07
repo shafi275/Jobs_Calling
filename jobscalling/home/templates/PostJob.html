@@ -42,8 +42,8 @@
             <p class="text-gray-500 mt-1">Fill out the details below to advertise your opening to candidates.</p>
         </header>
 
-        <!-- Django Message Area (Simulated) -->
-        <!-- In your Django template, you would replace this block with {% if messages %} loop -->
+    <!-- Django Message Area (Simulated) -->
+    <!-- In your Django template, replace this block with a Django messages loop (iterate over messages) -->
         <div id="message-container" class="hidden mb-6">
             <div class="bg-indigo-100 border border-indigo-400 text-indigo-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">Success!</strong>
@@ -54,7 +54,7 @@
         <!-- Job Posting Form -->
         <form id="jobPostingForm" method="POST" action="{% url 'post_job' %}">
             <!-- CSRF Token (Essential in Django) -->
-            <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"> -->
+            {% csrf_token %}
 
             <!-- Job Title and Location -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -137,7 +137,7 @@
                         class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 font-semibold transition duration-150 shadow-sm">
                     Save Draft
                 </button>
-                <button type="submit" 
+                <button id="postJobBtn" type="submit" 
                         class="px-8 py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Post Job Now
                 </button>
@@ -149,13 +149,20 @@
 
     <script>
         // Simple client-side validation example (optional)
-        document.getElementById('jobPostingForm').addEventListener('submit', function(event) {
+        const jobForm = document.getElementById('jobPostingForm');
+        const postBtn = document.getElementById('postJobBtn');
+        jobForm.addEventListener('submit', function(event) {
             const minSalary = document.getElementById('id_min_salary').value;
             const maxSalary = document.getElementById('id_max_salary').value;
 
             if (minSalary && maxSalary && parseInt(minSalary) > parseInt(maxSalary)) {
                 event.preventDefault();
                 alert("The Minimum Salary cannot be greater than the Maximum Salary.");
+            }
+            // prevent double submit
+            if (postBtn) {
+                postBtn.disabled = true;
+                postBtn.innerText = 'Posting...';
             }
             
             // Note: Django handles actual form validation on the server side

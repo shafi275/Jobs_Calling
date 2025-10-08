@@ -77,14 +77,14 @@
 
             <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
                 <a href="#companies" class="text-gray-600 hover:text-indigo-600 transition-all">Companies</a>
-                <a href="#interns" class="text-gray-600 hover:text-indigo-600 transition-all">Interns</a>
+                <a href="#Blog" class="text-gray-600 hover:text-indigo-600 transition-all">Blog</a>
                 <a href="#resources" class="text-gray-600 hover:text-indigo-600 transition-all">Resources</a>
                 <a href="#about" class="text-gray-600 hover:text-indigo-600 transition-all">About Us</a>
             </div>
             
             <div class="flex items-center space-x-4 lg:space-x-6">
                 <a href="{% url 'common_signup' %}" class="text-gray-600 hover:text-indigo-600 transition-all">Sign In</a>
-                <a href="#" class="hidden sm:block bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-lg font-medium transition shadow-md">Sign Up</a>
+                <a href="{% url 'common_signup' %}" class="hidden sm:block bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-lg font-medium transition shadow-md">Sign Up</a>
             </div>
         </div>
     </div>
@@ -108,8 +108,10 @@
           Bridge the gap between education and career with virtual internships that provide genuine professional experience
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <a href="{% url 'common_signup' %}">
           <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition ripple-btn">Companies: Hire</button>
           <button class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-700 transition ripple-btn">Interns: Apply</button>
+          </a>
         </div>
         <!-- Stats -->
         <div class="mt-10 grid grid-cols-3 gap-4 text-left max-w-lg mx-auto lg:mx-0 reveal">
@@ -327,8 +329,9 @@
   <section class="py-16 lg:py-24 gradient-bg text-white">
     <div class="max-w-4xl mx-auto text-center px-4">
       <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
-      <p class="text-lg mb-8 opacity-90">Join thousands of students who have launched successful careers through virtual internships</p>
-      <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition">Apply Now - It's Free</button>
+      <p class="text-lg mb-8 opacity-90">Join thousands of students who have launched successful careers through Jobs Calling.</p>
+      <a href="{% url 'common_signup' %}">
+      <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition">Apply Now </button></a>
     </div>
   </section>
 

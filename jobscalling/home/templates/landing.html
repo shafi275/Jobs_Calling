@@ -108,8 +108,10 @@
           Bridge the gap between education and career with virtual internships that provide genuine professional experience
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <a href="{% url 'common_signup' %}">
+          <a href="{% url 'company_register' %}">
           <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition ripple-btn">Companies: Hire</button>
+          </a>
+          <a href="{% url 'candidate_register' %}">
           <button class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-700 transition ripple-btn">Interns: Apply</button>
           </a>
         </div>
@@ -249,6 +251,12 @@
       <p class="text-lg text-gray-600">
         Hear from those who transformed their careers and businesses
       </p>
+      <!-- Give Review CTA -->
+      <div class="mt-6">
+        <a href="#give-review" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
+          Give Review
+        </a>
+      </div>
     </div>
     <!-- Rest of testimonials content (unchanged) -->
   </div>
@@ -325,12 +333,45 @@
     </div>
 </section>
 
+<!-- In-page Review Form (targeted by Give Review CTA) -->
+<section id="give-review" class="py-12 lg:py-16 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-6">
+      <h3 class="text-2xl font-semibold text-gray-900">Share Your Experience</h3>
+      <p class="text-gray-600">We'd love to hear your feedback — leave a short review below.</p>
+    </div>
+    <form id="reviewForm" class="space-y-4 bg-gray-50 p-6 rounded-xl shadow-sm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" id="reviewerName" name="name" placeholder="Your name" class="p-3 border rounded-lg w-full" required />
+        <input type="text" id="reviewerCompany" name="company" placeholder="Company (optional)" class="p-3 border rounded-lg w-full" />
+      </div>
+      <div>
+        <label class="sr-only" for="rating">Rating</label>
+        <select id="rating" name="rating" class="p-3 border rounded-lg w-40">
+          <option value="5">★★★★★ 5</option>
+          <option value="4">★★★★ 4</option>
+          <option value="3">★★★ 3</option>
+          <option value="2">★★ 2</option>
+          <option value="1">★ 1</option>
+        </select>
+      </div>
+      <div>
+        <textarea id="reviewText" name="review" rows="4" placeholder="Write your review..." class="p-3 border rounded-lg w-full" required></textarea>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded-lg">Submit Review</button>
+      </div>
+    </form>
+    <div id="reviewThanks" class="hidden mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-800">Thanks — your review was received (client-side demo).</div>
+  </div>
+</section>
+
   <!-- CTA Section -->
   <section class="py-16 lg:py-24 gradient-bg text-white">
     <div class="max-w-4xl mx-auto text-center px-4">
       <h2 class="text-3xl lg:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
       <p class="text-lg mb-8 opacity-90">Join thousands of students who have launched successful careers through Jobs Calling.</p>
-      <a href="{% url 'common_signup' %}">
+      <a href="{% url 'candidate_register' %}">
       <button class="bg-white text-indigo-700 hover:text-indigo-800 hover:shadow-xl px-6 py-3 rounded-lg font-semibold shadow-lg transition">Apply Now </button></a>
     </div>
   </section>
@@ -481,6 +522,19 @@
             companyTab.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
         }
     };
+    // Review form handling (client-side demo)
+    const reviewForm = document.getElementById('reviewForm');
+    if (reviewForm) {
+      reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // show thank you message
+        document.getElementById('reviewThanks').classList.remove('hidden');
+        // clear form fields
+        reviewForm.reset();
+        // scroll to thanks message
+        document.getElementById('reviewThanks').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   </script>
 </body>
 </html>

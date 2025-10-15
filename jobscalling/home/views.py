@@ -170,7 +170,9 @@ def candidate_profile(request):
         profile = None
     return render(request, "CandidateProfile.html", {"profile": profile})
 
-
+@login_required
+def candidate_cv(request):
+    return render(request, "UploadCV.html")
 # Company Dashboard (login required)
 @login_required
 def company_dashboard(request):

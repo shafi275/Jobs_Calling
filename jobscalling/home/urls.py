@@ -9,6 +9,7 @@ urlpatterns = [
     path("candidate/login/", views.candidate_login, name="candidate_login"),
     path("company/login/", views.company_login, name="company_login"),
    path('candidate/dashboard/', views.candidate_dashboard, name='candidate_dashboard'),
+    path('candidate/upload-cv/', views.candidate_cv, name='candidate_cv'),
     path('candidate/profile/', views.candidate_profile, name='candidate_profile'),
     path('company/dashboard/', views.company_dashboard, name='company_dashboard'),
     # Job posting and management

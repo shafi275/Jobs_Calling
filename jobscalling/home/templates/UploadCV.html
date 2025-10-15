@@ -39,8 +39,8 @@
                     </h2>
                     <hr class="mb-4">
 
-                    <form id="cvUploadForm" action="/api/upload-cv" method="POST" enctype="multipart/form-data">
-                        
+                    <form id="cvUploadForm" action="{% url 'candidate_cv' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="mb-4">
                             <label for="cvFile" class="form-label d-block text-lg font-semibold mb-2">
                                 Choose File (PDF or DOCX)
@@ -184,44 +184,53 @@
                 fileInput.dispatchEvent(new Event('change'));
             }
 
-            // --- 4. Form Submission (Simulated) ---
+            // --- 4. Form Submission ---
+            // Validate client-side then allow normal form POST to the Django view
             form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
+                // Clear previous alerts
+                alertMessage.classList.add('hidden');
+
                 if (fileInput.files.length === 0) {
+                    e.preventDefault();
                     alertMessage.textContent = '⚠️ Please select a CV file to upload.';
                     alertMessage.className = 'mt-4 p-3 rounded text-center bg-warning-subtle text-warning';
                     alertMessage.classList.remove('hidden');
-                    return;
+                    return false;
                 }
 
-                // Display uploading status
-                alertMessage.textContent = '...Uploading CV to Jobs Calling. Please wait...';
+                const file = fileInput.files[0];
+                if (!file) {
+                    e.preventDefault();
+                    alertMessage.textContent = '⚠️ Please select a CV file to upload.';
+                    alertMessage.className = 'mt-4 p-3 rounded text-center bg-warning-subtle text-warning';
+                    alertMessage.classList.remove('hidden');
+                    return false;
+                }
+
+                // Re-validate size and type before submit
+                if (file.size > MAX_FILE_SIZE) {
+                    e.preventDefault();
+                    alertMessage.textContent = `❌ Error: File size (${(file.size / 1024 / 1024).toFixed(2)} MB) exceeds the 5MB limit.`;
+                    alertMessage.className = 'mt-4 p-3 rounded text-center bg-danger-subtle text-danger';
+                    alertMessage.classList.remove('hidden');
+                    return false;
+                }
+
+                const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (!allowedTypes.includes(file.type)) {
+                    e.preventDefault();
+                    alertMessage.textContent = `❌ Error: Invalid file type. Only PDF and DOCX are allowed.`;
+                    alertMessage.className = 'mt-4 p-3 rounded text-center bg-danger-subtle text-danger';
+                    alertMessage.classList.remove('hidden');
+                    return false;
+                }
+
+                // If we reach here, client-side validation passed and the browser will perform the POST
+                // Optionally, show a simple uploading indicator (non-simulated)
+                alertMessage.textContent = 'Uploading... Please wait.';
                 alertMessage.className = 'mt-4 p-3 rounded text-center bg-info-subtle text-info';
                 alertMessage.classList.remove('hidden');
-
-                // NOTE: In a real-world scenario, you would send the form data 
-                // using the Fetch API or XMLHttpRequest here.
-                
-                /*
-                const formData = new FormData(form);
-                fetch(form.action, { method: 'POST', body: formData })
-                    .then(response => response.json())
-                    .then(data => { ... handle success/fail ... })
-                    .catch(error => { ... handle network error ... });
-                */
-                
-                // --- SIMULATED SUCCESS (REMOVE THIS BLOCK FOR REAL IMPLEMENTATION) ---
-                setTimeout(() => {
-                    alertMessage.textContent = '✅ Success! Your CV has been uploaded to Jobs Calling.';
-                    alertMessage.className = 'mt-4 p-3 rounded text-center bg-success-subtle text-success';
-                    
-                    // Reset the form and display elements on success
-                    form.reset(); 
-                    fileNameDisplay.classList.add('hidden');
-                    dropArea.style.borderColor = '#0d6efd'; // Reset border
-                }, 2000);
-                // ---------------------------------------------------------------------
+                return true;
             });
         });
     </script> 

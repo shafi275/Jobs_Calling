@@ -134,3 +134,28 @@ class JobApplication(models.Model):
 
     def __str__(self):
         return f"{self.candidate.full_name}'s application for {self.job.title}"
+
+
+class CandidateResume(models.Model):
+    """
+    Stores uploaded CVs/resumes for candidates.
+    """
+    candidate = models.ForeignKey(
+        CandidateProfile,
+        on_delete=models.CASCADE,
+        related_name='resumes',
+        help_text="Candidate who uploaded this resume."
+    )
+    file = models.FileField(upload_to='resumes/')
+    original_filename = models.CharField(max_length=255, blank=True)
+    content_type = models.CharField(max_length=100, blank=True)
+    file_size = models.PositiveIntegerField(null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-uploaded_at']
+        verbose_name = 'Candidate Resume'
+        verbose_name_plural = 'Candidate Resumes'
+
+    def __str__(self):
+        return f"{self.candidate.full_name} - {self.original_filename or self.file.name}"

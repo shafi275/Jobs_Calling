@@ -11,7 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 
 # Import models and form
-from .models import CandidateProfile, CompanyProfile, JobPosting, JobApplication
+from .models import CandidateProfile, CompanyProfile, JobPosting, JobApplication, CandidateResume
 from .forms import JobPostingForm # Assumes you have created this form
 
 
@@ -172,6 +172,45 @@ def candidate_profile(request):
 
 @login_required
 def candidate_cv(request):
+    # Ensure candidate profile exists
+    try:
+        candidate_profile = CandidateProfile.objects.get(user=request.user)
+    except CandidateProfile.DoesNotExist:
+        messages.error(request, "Candidate profile not found. Please complete your profile first.")
+        return redirect('candidate_dashboard')
+
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('cvFile')
+        if not uploaded_file:
+            messages.error(request, "Please select a file to upload.")
+            return redirect('candidate_cv')
+
+        # Validation
+        MAX_SIZE = 5 * 1024 * 1024  # 5 MB
+        allowed_types = [
+            'application/pdf',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ]
+
+        if uploaded_file.size > MAX_SIZE:
+            messages.error(request, "File too large. Maximum allowed size is 5MB.")
+            return redirect('candidate_cv')
+
+        if uploaded_file.content_type not in allowed_types:
+            messages.error(request, "Invalid file type. Only PDF and DOCX are allowed.")
+            return redirect('candidate_cv')
+
+        # Save resume record
+        resume = CandidateResume.objects.create(
+            candidate=candidate_profile,
+            file=uploaded_file,
+            original_filename=getattr(uploaded_file, 'name', ''),
+            content_type=getattr(uploaded_file, 'content_type', ''),
+            file_size=getattr(uploaded_file, 'size', None)
+        )
+        messages.success(request, "Your CV was uploaded successfully.")
+        return redirect('candidate_profile')
+
     return render(request, "UploadCV.html")
 # Company Dashboard (login required)
 @login_required

@@ -91,7 +91,7 @@
 
   <!-- Content -->
   <div class="content">
-    <h3 class="mb-4">Welcome, <strong>TechCorp Ltd</strong> 👋</h3>
+    <h3 class="mb-4">Welcome, <strong>{{ user.first_name|default:user.username }}</strong> 👋</h3>
 
     <!-- Stats -->
     <div class="row mb-4">

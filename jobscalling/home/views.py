@@ -36,7 +36,8 @@ def candidate_register(request):
 
         # Create user
         user = User.objects.create(
-            username=email,
+            username=email ,
+            first_name=full_name ,
             email=email,
             password=make_password(password),
         )
@@ -83,6 +84,7 @@ def company_register(request):
         user = User.objects.create(
             username=email,
             email=email,
+            first_name=company_name, 
             password=make_password(password),
         )
 

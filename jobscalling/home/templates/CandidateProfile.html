@@ -44,7 +44,7 @@
 <!-- Profile Header -->
 <div class="profile-header">
   <img src="https://via.placeholder.com/120" alt="Profile Picture">
-  <h3>John Doe</h3>
+  <h3>{{ user.first_name|default:user.username }}</h3>
   <p>Software Engineer | Dhaka, Bangladesh</p>
   <button class="btn btn-light btn-sm">Edit Profile</button>
 </div>

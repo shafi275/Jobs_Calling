@@ -183,7 +183,7 @@
           <img src="https://via.placeholder.com/45/667eea/ffffff?text=JD" class="rounded-circle me-2" alt="Profile" onerror="this.src=''; this.alt='Profile image failed to load'; this.style.display='none';">
           <div>
             <small class="text-muted d-block">Welcome back,</small>
-            <strong>John Doe</strong>
+            <strong>{{ user.first_name|default:user.username }}</strong>
           </div>
         </div>
       </div>

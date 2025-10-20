@@ -160,7 +160,26 @@ def common_signup(request):
 # Candidate Dashboard (login required)
 @login_required
 def candidate_dashboard(request):
-    return render(request, "CandidateDashboard.html")
+    # Provide active job postings to the candidate dashboard so real jobs are shown
+    from .models import JobPosting
+    job_qs = JobPosting.objects.filter(is_active=True).select_related('company').annotate(app_count=Count('applications')).order_by('-posted_date')
+
+    # Paginate candidate dashboard jobs (10 per page)
+    paginator = Paginator(job_qs, 10)
+    page = request.GET.get('page', 1)
+    try:
+        jobs_page = paginator.page(page)
+    except PageNotAnInteger:
+        jobs_page = paginator.page(1)
+    except EmptyPage:
+        jobs_page = paginator.page(paginator.num_pages)
+
+    context = {
+        'jobs': jobs_page,  # Page object usable like an iterable in templates
+        'paginator': paginator,
+        'page_obj': jobs_page,
+    }
+    return render(request, "CandidateDashboard.html", context)
 
 # Candidate Profile (view)
 @login_required

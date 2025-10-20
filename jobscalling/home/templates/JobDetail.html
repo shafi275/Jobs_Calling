@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }} | Job Details</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center py-10">
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">{{ job.title }}</h1>
+        <p class="text-gray-500 text-lg">{{ job.location }}</p>
+    </header>
+
+    <!-- Job Detail Card -->
+    <main class="bg-white card w-full max-w-5xl p-8">
+        
+        <!-- Job Type and Deadline -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase mb-1">Job Type</p>
+                <p class="text-gray-800 text-lg font-semibold">
+                    {% if job.job_type == "FT" %}Full-time{% elif job.job_type == "PT" %}Part-time
+                    {% elif job.job_type == "CT" %}Contract{% elif job.job_type == "IT" %}Internship{% endif %}
+                </p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase mb-1">Application Deadline</p>
+                <p class="text-gray-800 text-lg font-semibold">{{ job.application_deadline|date:"F j, Y" }}</p>
+            </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase mb-1">Minimum Salary</p>
+                <p class="text-gray-800 text-lg font-semibold">${{ job.min_salary }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase mb-1">Maximum Salary</p>
+                <p class="text-gray-800 text-lg font-semibold">${{ job.max_salary }}</p>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">Job Description</h2>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ job.description }}</p>
+        </section>
+
+        <!-- Requirements -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">Requirements & Qualifications</h2>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ job.requirements }}</p>
+        </section>
+
+        <!-- Status -->
+        <section class="mb-8">
+            {% if job.is_active %}
+                <span class="inline-flex items-center bg-green-100 text-green-700 font-medium px-4 py-2 rounded-full">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+                         viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                         d="M5 13l4 4L19 7" /></svg>
+                    Currently Accepting Applications
+                </span>
+            {% else %}
+                <span class="inline-flex items-center bg-red-100 text-red-700 font-medium px-4 py-2 rounded-full">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+                         viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                         d="M6 18L18 6M6 6l12 12" /></svg>
+                    Job Closed
+                </span>
+            {% endif %}
+        </section>
+
+        <!-- Apply Button -->
+        {% if job.is_active %}
+        <div class="text-center">
+            <button id="applyButton"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-200">
+                Apply Now
+            </button>
+        </div>
+        {% endif %}
+
+    </main>
+
+    <!-- Simple JavaScript -->
+    <script>
+        const btn = document.getElementById('applyButton');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                alert('Redirecting to application form...');
+                // In Django: window.location.href = "{% url 'apply_job' job.id %}";
+            });
+        }
+    </script>
+
+</body>
+</html>

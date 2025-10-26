@@ -62,6 +62,7 @@ class JobPosting(models.Model):
         blank=True, 
         validators=[MinValueValidator(0)],
         help_text="Minimum expected annual salary (optional)."
+        
     )
     max_salary = models.IntegerField(
         null=True, 

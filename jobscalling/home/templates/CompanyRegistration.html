@@ -1,78 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Company Registration | Jobs Calling</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
     body {
       font-family: 'Inter', sans-serif;
     }
-    
+
     .gradient-bg {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    
+
     .glass-effect {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    
+
     .input-focus:focus {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
     }
-    
+
     .btn-hover:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
     }
-    
+
     .floating-label {
       transition: all 0.3s ease;
     }
-    
+
     .input-group:focus-within .floating-label {
       transform: translateY(-24px) scale(0.85);
       color: #667eea;
     }
-    
+
     .input-group input:not(:placeholder-shown) + .floating-label {
       transform: translateY(-24px) scale(0.85);
       color: #667eea;
     }
-    
+
     .animate-fade-in {
       animation: fadeIn 0.8s ease-out;
     }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
+
     .animate-slide-in {
       animation: slideIn 1s ease-out;
     }
-    
+
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-50px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   </style>
 </head>
-<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
 
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
   <div class="w-full max-w-md animate-fade-in">
     <!-- Header -->
     <div class="text-center mb-8 animate-slide-in">
       <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4">
         <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
         </svg>
       </div>
       <h1 class="text-3xl font-bold text-white mb-2">Join Jobs Calling</h1>
@@ -82,18 +93,13 @@
     <!-- Form Container -->
     <div class="glass-effect rounded-2xl p-8 shadow-2xl">
       <form id="companyForm" class="space-y-6" method="POST" action="{% url 'company_register' %}">
-        {% csrf_token %}    
-        
+        {% csrf_token %}
+
         <!-- Company Name -->
         <div class="input-group relative">
-          <input 
-            type="text" 
-            id="companyName" 
-            name="companyName"
-            placeholder=" " 
+          <input type="text" id="companyName" name="companyName" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-          >
+            required>
           <label for="companyName" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Company Name
           </label>
@@ -101,12 +107,9 @@
 
         <!-- Industry -->
         <div class="input-group relative">
-          <select 
-            id="industry" 
-            name="industry"
+          <select id="industry" name="industry"
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none appearance-none"
-            required
-          >
+            required>
             <option value="">Select Industry</option>
             <option value="technology">Technology</option>
             <option value="finance">Finance & Banking</option>
@@ -127,12 +130,9 @@
 
         <!-- Company Size -->
         <div class="input-group relative">
-          <select 
-            id="companySize" 
-            name="companySize"
+          <select id="companySize" name="companySize"
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none appearance-none"
-            required
-          >
+            required>
             <option value="">Company Size</option>
             <option value="1-10">1-10 employees</option>
             <option value="11-50">11-50 employees</option>
@@ -140,23 +140,13 @@
             <option value="201-1000">201-1000 employees</option>
             <option value="1000+">1000+ employees</option>
           </select>
-          <div class="absolute right-3 top-3 pointer-events-none">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </div>
         </div>
 
-        <!-- Company Email -->
+        <!-- Email -->
         <div class="input-group relative">
-          <input 
-            type="email" 
-            id="companyEmail" 
-            name="companyEmail"
-            placeholder=" " 
+          <input type="email" id="companyEmail" name="companyEmail" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-          >
+            required>
           <label for="companyEmail" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Official Company Email
           </label>
@@ -164,29 +154,19 @@
 
         <!-- Contact Person -->
         <div class="input-group relative">
-          <input 
-            type="text" 
-            id="contactPerson" 
-            name="contactPerson"
-            placeholder=" " 
+          <input type="text" id="contactPerson" name="contactPerson" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-          >
+            required>
           <label for="contactPerson" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Contact Person Name
           </label>
         </div>
 
-        <!-- Phone Number -->
+        <!-- Phone -->
         <div class="input-group relative">
-          <input 
-            type="tel" 
-            id="phoneNumber" 
-            name="phoneNumber"
-            placeholder=" " 
+          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-          >
+            required>
           <label for="phoneNumber" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Phone Number
           </label>
@@ -194,13 +174,8 @@
 
         <!-- Website -->
         <div class="input-group relative">
-          <input 
-            type="url" 
-            id="website" 
-            name="website"
-            placeholder=" " 
-            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-          >
+          <input type="url" id="website" name="website" placeholder=" "
+            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer">
           <label for="website" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Company Website (Optional)
           </label>
@@ -208,15 +183,9 @@
 
         <!-- Password -->
         <div class="input-group relative">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder=" "
+          <input type="password" id="password" name="password" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-            minlength="6"
-          >
+            required minlength="6">
           <label for="password" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Password
           </label>
@@ -224,45 +193,37 @@
 
         <!-- Confirm Password -->
         <div class="input-group relative">
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirm_password"
-            placeholder=" "
+          <input type="password" id="confirmPassword" name="confirm_password" placeholder=" "
             class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white transition-all duration-300 input-focus outline-none peer"
-            required
-          >
+            required>
           <label for="confirmPassword" class="floating-label absolute left-4 top-3 text-gray-500 pointer-events-none">
             Confirm Password
           </label>
         </div>
 
-        <!-- Terms Checkbox -->
+        <!-- Terms -->
         <div class="flex items-start space-x-3">
-          <input 
-            type="checkbox" 
-            id="terms" 
-            name="terms"
+          <input type="checkbox" id="terms" name="terms"
             class="mt-1 w-5 h-5 text-indigo-600 border-2 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
-            required
-          >
+            required>
           <label for="terms" class="text-sm text-gray-600 leading-relaxed">
-            I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Privacy Policy</a>
+            I agree to the
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Terms of Service</a>
+            and
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Privacy Policy</a>
           </label>
         </div>
 
-        <!-- Submit Button -->
-        <button 
-          type="submit" 
-          class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 btn-hover focus:outline-none focus:ring-4 focus:ring-indigo-300"
-        >
+        <!-- Submit -->
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 btn-hover focus:outline-none focus:ring-4 focus:ring-indigo-300">
           Create Company Account
         </button>
 
-        <!-- Login Link -->
+        <!-- Login -->
         <div class="text-center pt-4">
           <p class="text-gray-600">
-            Already have an account? 
+            Already have an account?
             <a href="{% url 'company_login' %}" class="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
               Sign In
             </a>
@@ -270,55 +231,22 @@
         </div>
       </form>
     </div>
-
-    <!-- Success Message (Hidden by default) -->
-    <div id="successMessage" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl text-center">
-      <div class="flex items-center justify-center space-x-2">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-        </svg>
-        <span class="font-medium">Registration submitted successfully! We'll be in touch soon.</span>
-      </div>
-    </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
-    // Form submission handler: validate on client, then submit to server so backend can redirect
-    document.getElementById('companyForm').addEventListener('submit', function(e) {
-      // perform client-side validation (HTML5 required attributes already enforce most rules)
+    document.getElementById('companyForm').addEventListener('submit', function (e) {
       const form = e.target;
+      if (!form.checkValidity()) return;
 
-      // If the form is invalid according to HTML5, let the browser show validation UI
-      if (!form.checkValidity()) {
-        // Allow browser to display built-in validation messages
-        return;
-      }
-
-      // Show a quick loading state, then submit normally so the server-side view runs and can redirect
       const submitButton = form.querySelector('button[type="submit"]');
       submitButton.textContent = 'Creating Account...';
       submitButton.disabled = true;
-
-      // Allow the normal POST to proceed to the server
-      // No e.preventDefault() here -- we want the form to be posted
     });
 
-    // Enhanced floating label behavior
-    document.querySelectorAll('.input-group input').forEach(input => {
-      input.addEventListener('focus', function() {
-        this.parentElement.classList.add('focused');
-      });
-      
-      input.addEventListener('blur', function() {
-        if (!this.value) {
-          this.parentElement.classList.remove('focused');
-        }
-      });
-    });
-
-    // Form validation feedback
+    // Input feedback colors
     document.querySelectorAll('input[required], select[required]').forEach(field => {
-      field.addEventListener('blur', function() {
+      field.addEventListener('blur', function () {
         if (this.value.trim() === '') {
           this.classList.add('border-red-300');
           this.classList.remove('border-gray-200');
@@ -329,6 +257,5 @@
       });
     });
   </script>
-
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f091c3375dc86a',t:'MTc1Nzg2MDA5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

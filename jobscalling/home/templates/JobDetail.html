@@ -96,10 +96,12 @@
         <!-- Apply Button -->
         {% if job.is_active %}
         <div class="text-center">
+            <a href="{%url 'apply_job' job.id%}"
             <button id="applyButton"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-200">
                 Apply Now
             </button>
+        </a>
         </div>
         {% endif %}
 

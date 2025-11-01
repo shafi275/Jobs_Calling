@@ -389,7 +389,8 @@ def job_detail(request, pk):
 @login_required
 def apply_for_job(request, job_id):
     """
-    Allows a candidate to apply for a job posting.
+    Allows a candidate to apply for a specific job posting.
+    Extended to handle additional job application details.
     """
     job = get_object_or_404(JobPosting, pk=job_id)
 
@@ -399,25 +400,52 @@ def apply_for_job(request, job_id):
         messages.error(request, "You must be logged in as a Candidate to apply for jobs.")
         return redirect('job_detail', pk=job_id)
 
+    # Handle form submission
     if request.method == 'POST':
-        # Assuming only a cover letter field for simplicity, extend as needed
+        full_name = request.POST.get('full_name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        dob = request.POST.get('dob', None)
+        education = request.POST.get('education', '')
+        experience = request.POST.get('experience', '')
+        expected_salary = request.POST.get('expected_salary', '')
+        skills = request.POST.get('skills', '')
+        portfolio = request.POST.get('portfolio', '')
         cover_letter = request.POST.get('cover_letter', '')
-        
+
+        resume = request.FILES.get('resume', None)  # Handle uploaded file
+
         try:
+            # Prevent duplicate applications
+            if JobApplication.objects.filter(job=job, candidate=candidate_profile).exists():
+                messages.warning(request, f"You have already applied for '{job.title}'.")
+                return redirect('job_detail', pk=job_id)
+
             JobApplication.objects.create(
                 job=job,
                 candidate=candidate_profile,
-                cover_letter=cover_letter
-                # In a real app, handle resume upload here
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                dob=dob,
+                education=education,
+                experience=experience,
+                expected_salary=expected_salary,
+                skills=skills,
+                portfolio=portfolio,
+                cover_letter=cover_letter,
+                resume=resume
             )
+
             messages.success(request, f"Successfully applied for '{job.title}'!")
-            return redirect('candidate_dashboard') 
+            return redirect('candidate_dashboard')
+
         except IntegrityError:
-            messages.warning(f"You have already applied for the job: '{job.title}'.")
+            messages.warning(request, f"You have already applied for '{job.title}'.")
             return redirect('job_detail', pk=job_id)
         except Exception as e:
-            messages.error(f"An error occurred during application: {e}")
+            messages.error(request, f"An error occurred: {e}")
             return redirect('job_detail', pk=job_id)
 
-    # If GET or error, redirect back to job detail
-    return redirect('job_detail', pk=job_id)
+    # If GET → show the form
+    return render(request, 'ApplyJob.html', {'job': job})

@@ -90,23 +90,37 @@ class JobPosting(models.Model):
 class JobApplication(models.Model):
     """
     Tracks a specific application by a candidate to a specific job posting.
+    Includes applicant details and additional fields.
     """
-    # Relationship: Many applications can be for one job, and many applications can be made by one candidate.
+    # Relationships
     job = models.ForeignKey(
-        JobPosting, 
-        on_delete=models.CASCADE, 
+        JobPosting,
+        on_delete=models.CASCADE,
         related_name='applications',
         help_text="The job posting the candidate is applying for."
     )
     candidate = models.ForeignKey(
-        CandidateProfile, 
-        on_delete=models.CASCADE, 
+        CandidateProfile,
+        on_delete=models.CASCADE,
         related_name='applications',
         help_text="The candidate submitting the application."
     )
-    
-    application_date = models.DateTimeField(auto_now_add=True)
+
+    # Extended applicant details (from the form)
+    full_name = models.CharField(max_length=100,default="", help_text="Full name of the applicant.")
+    email = models.EmailField(default="",help_text="Applicant's email address.")
+    phone = models.CharField(max_length=20,default="", help_text="Applicant's phone number.")
+    dob = models.DateField(null=True, blank=True, help_text="Date of birth of the applicant.")
+    education = models.CharField(max_length=200, blank=True, help_text="Highest education qualification.")
+    experience = models.CharField(max_length=50, blank=True, help_text="Years of experience (e.g., 2 years, 6 months).")
+    expected_salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Expected salary in BDT.")
+    skills = models.TextField(blank=True, help_text="Skills or technologies known by the applicant.")
+    portfolio = models.URLField(blank=True, help_text="Link to LinkedIn or portfolio (optional).")
+
+    # Application fields
     cover_letter = models.TextField(blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True, help_text="Uploaded resume file.")
+    application_date = models.DateTimeField(auto_now_add=True)
 
     # Application Status Choices
     STATUS_CHOICES = [
@@ -123,19 +137,14 @@ class JobApplication(models.Model):
         default='PENDING',
         help_text="Current status of the application."
     )
-    
-    # In a real app, you would likely use a FileField here for resume/CV upload.
-    # resume_file = models.FileField(upload_to='resumes/', null=True, blank=True)
 
     class Meta:
-        # Prevent the same candidate from applying to the same job twice
-        unique_together = ('job', 'candidate') 
+        unique_together = ('job', 'candidate')
         ordering = ['-application_date']
         verbose_name_plural = "Job Applications"
 
     def __str__(self):
         return f"{self.candidate.full_name}'s application for {self.job.title}"
-
 
 class CandidateResume(models.Model):
     """

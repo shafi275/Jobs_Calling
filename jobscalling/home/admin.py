@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import CandidateProfile, CompanyProfile, JobPosting, JobApplication, CandidateResume
+from .models import Review
 
 
 @admin.register(CandidateProfile)
@@ -45,3 +46,13 @@ class CandidateResumeAdmin(admin.ModelAdmin):
     date_hierarchy = 'uploaded_at'
     ordering = ('-uploaded_at',)
     list_per_page = 20
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('name', 'company', 'reviewer_type', 'rating', 'is_active', 'created_at')
+    list_filter = ('reviewer_type', 'is_active', 'created_at', 'rating')
+    search_fields = ('name', 'company', 'review')
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)
+    list_per_page = 25

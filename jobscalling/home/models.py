@@ -169,3 +169,25 @@ class CandidateResume(models.Model):
 
     def __str__(self):
         return f"{self.candidate.full_name} - {self.original_filename or self.file.name}"
+
+
+class Review(models.Model):
+    REVIEWER_TYPES = [
+        ('student', 'Student'),
+        ('company', 'Company'),
+    ]
+    name = models.CharField(max_length=150)
+    company = models.CharField(max_length=200, blank=True, null=True)
+    rating = models.PositiveSmallIntegerField(default=5)
+    review = models.TextField()
+    reviewer_type = models.CharField(max_length=20, choices=REVIEWER_TYPES, default='student')
+    is_active = models.BooleanField(default=True, help_text='Show this review on the landing page')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+
+    def __str__(self):
+        return f"{self.name} - {self.company or self.reviewer_type}"

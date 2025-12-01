@@ -272,65 +272,48 @@
         </div>
 
         <div id="student-content" class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal testimonial-content active-content">
+          {% for r in student_reviews %}
             <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sarah Johnson" class="rounded-full w-16 h-16 object-cover mb-4">
-                <div class="font-semibold text-gray-900">Sarah Johnson</div>
-                <div class="text-gray-600 text-sm mb-4">Business Student</div>
-                <div class="flex items-center gap-2 mb-4 opacity-70">
-                    <img src="https://logo.clearbit.com/mckinsey.com" alt="Company" class="h-4">
-                    <span class="text-xs text-gray-500">McKinsey Virtual</span>
-                </div>
-                <p class="text-gray-600 flex-grow">"The virtual internship gave me real consulting experience. I landed a full-time offer at a top firm!"</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+              <div class="rounded-full w-16 h-16 object-cover mb-4 bg-gray-100 flex items-center justify-center text-xl font-semibold text-gray-700">{{ r.name|slice:":1"|upper }}</div>
+              <div class="font-semibold text-gray-900">{{ r.name }}</div>
+              <div class="text-gray-600 text-sm mb-4">Student</div>
+              <div class="flex items-center gap-2 mb-4 opacity-70">
+                {% if r.company %}
+                  <span class="text-xs text-gray-500">{{ r.company }}</span>
+                {% endif %}
+              </div>
+              <p class="text-gray-600 flex-grow">{{ r.review }}</p>
+              <div class="flex text-yellow-400 mt-3">{{ r.rating }} / 5</div>
             </div>
-            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://images.unsplash.com/photo-1603415526960-f8f0a42e3f8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mike Chen" class="rounded-full w-16 h-16 object-cover mb-4">
-                <div class="font-semibold text-gray-900">Mike Chen</div>
-                <div class="text-gray-600 text-sm mb-4">Computer Science</div>
-                <div class="flex items-center gap-2 mb-4 opacity-70">
-                    <img src="https://logo.clearbit.com/google.com" alt="Company" class="h-4">
-                    <span class="text-xs text-gray-500">Google Career Prep</span>
-                </div>
-                <p class="text-gray-600 flex-grow">"Working on real tech projects remotely prepared me perfectly for the modern workplace."</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
-            </div>
-            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://images.unsplash.com/photo-1607746881983-4f3f90d0a7a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Anna Rodriguez" class="rounded-full w-16 h-16 object-cover mb-4">
-                <div class="font-semibold text-gray-900">Anna Rodriguez</div>
-                <div class="text-gray-600 text-sm mb-4">Marketing Major</div>
-                <div class="flex items-center gap-2 mb-4 opacity-70">
-                    <img src="https://logo.clearbit.com/spotify.com" alt="Company" class="h-4">
-                    <span class="text-xs text-gray-500">Spotify Digital</span>
-                </div>
-                <p class="text-gray-600 flex-grow">"I built an amazing portfolio and network. The experience was invaluable for my career."</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
-            </div>
+          {% empty %}
+            <div class="col-span-1 text-center text-gray-500">No student testimonials yet.</div>
+          {% endfor %}
         </div>
 
         <div id="company-content" class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal testimonial-content" style="display: none;">
+          {% for r in company_reviews %}
             <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft Logo" class="w-16 h-16 object-contain mb-4">
-                <div class="font-semibold text-gray-900">Sarah Lee</div>
-                <div class="text-gray-600 text-sm mb-4">HR Director, Microsoft</div>
-                <p class="text-gray-600 flex-grow">"Jobs Calling is our pipeline for pre-vetted, high-potential talent. It significantly cuts down our hiring time."</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
+              <div class="w-16 h-16 object-contain mb-4 bg-gray-50 flex items-center justify-center text-lg font-semibold text-gray-700">{{ r.company|default:'Co'|slice:':1'|upper }}</div>
+              <div class="font-semibold text-gray-900">{{ r.name }}</div>
+              <div class="text-gray-600 text-sm mb-4">{{ r.company }}</div>
+              <p class="text-gray-600 flex-grow">{{ r.review }}</p>
+              <div class="flex text-yellow-400 mt-3">{{ r.rating }} / 5</div>
             </div>
-            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://logo.clearbit.com/amazon.com" alt="Amazon Logo" class="w-16 h-16 object-contain mb-4">
-                <div class="font-semibold text-gray-900">David G.</div>
-                <div class="text-gray-600 text-sm mb-4">VP of Operations, Amazon</div>
-                <p class="text-gray-600 flex-grow">"The virtual program allowed us to evaluate skills on real-world tasks. The quality of hires has been exceptional."</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
-            </div>
-            <div class="bg-white rounded-xl p-6 card-hover flex flex-col tilt">
-                <img src="https://logo.clearbit.com/salesforce.com" alt="Salesforce Logo" class="w-16 h-16 object-contain mb-4">
-                <div class="font-semibold text-gray-900">Maria P.</div>
-                <div class="text-gray-600 text-sm mb-4">Talent Acquisition, Salesforce</div>
-                <p class="text-gray-600 flex-grow">"We've scaled our remote internship program effortlessly. A truly seamless platform for finding future leaders."</p>
-                <div class="flex text-yellow-400 mt-3">★★★★★</div>
-            </div>
+          {% empty %}
+            <div class="col-span-1 text-center text-gray-500">No company testimonials yet.</div>
+          {% endfor %}
         </div>
     </div>
+    {# Messages block: show success/info messages (e.g., review submission ack) #}
+    {% if messages %}
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+        {% for message in messages %}
+          <div class="rounded-lg p-3 text-sm {% if message.tags %}bg-green-50 border border-green-200 text-green-800{% else %}bg-gray-50 border border-gray-200 text-gray-800{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
 </section>
 
 <!-- In-page Review Form (targeted by Give Review CTA) -->
@@ -340,7 +323,18 @@
       <h3 class="text-2xl font-semibold text-gray-900">Share Your Experience</h3>
       <p class="text-gray-600">We'd love to hear your feedback — leave a short review below.</p>
     </div>
-    <form id="reviewForm" class="space-y-4 bg-gray-50 p-6 rounded-xl shadow-sm">
+    <form id="reviewForm" class="space-y-4 bg-gray-50 p-6 rounded-xl shadow-sm" method="POST" action="{% url 'submit_review' %}">
+      {% csrf_token %}
+      <div class="flex gap-3 items-center justify-center mb-2">
+        <label class="inline-flex items-center gap-2">
+          <input type="radio" name="reviewer_type_radio" value="student" class="peer sr-only" id="reviewerRadioStudent" {% if user_reviewer_type == 'student' or not user_reviewer_type %}checked{% endif %}>
+          <span class="px-3 py-1 rounded-lg border cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white">Student</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input type="radio" name="reviewer_type_radio" value="company" class="peer sr-only" id="reviewerRadioCompany" {% if user_reviewer_type == 'company' %}checked{% endif %}>
+          <span class="px-3 py-1 rounded-lg border cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white">Company</span>
+        </label>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" id="reviewerName" name="name" placeholder="Your name" class="p-3 border rounded-lg w-full" required />
         <input type="text" id="reviewerCompany" name="company" placeholder="Company (optional)" class="p-3 border rounded-lg w-full" />
@@ -359,10 +353,11 @@
         <textarea id="reviewText" name="review" rows="4" placeholder="Write your review..." class="p-3 border rounded-lg w-full" required></textarea>
       </div>
       <div class="text-right">
+        <input type="hidden" name="reviewer_type" value="student" id="reviewerType">
         <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded-lg">Submit Review</button>
       </div>
     </form>
-    <div id="reviewThanks" class="hidden mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-800">Thanks — your review was received (client-side demo).</div>
+    <div id="reviewThanks" class="hidden mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-800">Thanks — your review was received.</div>
   </div>
 </section>
 
@@ -522,19 +517,35 @@
             companyTab.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
         }
     };
-    // Review form handling (client-side demo)
-    const reviewForm = document.getElementById('reviewForm');
-    if (reviewForm) {
-      reviewForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // show thank you message
-        document.getElementById('reviewThanks').classList.remove('hidden');
-        // clear form fields
-        reviewForm.reset();
-        // scroll to thanks message
-        document.getElementById('reviewThanks').scrollIntoView({ behavior: 'smooth' });
-      });
+    // Update reviewer type when switching testimonials tabs so the form reflects the selection
+    const reviewerTypeInput = document.getElementById('reviewerType');
+    const studentTabBtn = document.getElementById('student-tab');
+    const companyTabBtn = document.getElementById('company-tab');
+    const reviewerRadioStudent = document.getElementById('reviewerRadioStudent');
+    const reviewerRadioCompany = document.getElementById('reviewerRadioCompany');
+
+    // Ensure the hidden input mirrors the radio selection
+    function setReviewerType(val) {
+      if (reviewerTypeInput) reviewerTypeInput.value = val;
+      // also set the radio visually
+      if (reviewerRadioStudent && reviewerRadioCompany) {
+        reviewerRadioStudent.checked = (val === 'student');
+        reviewerRadioCompany.checked = (val === 'company');
+      }
     }
+
+    // Initialize using default or server-supplied value
+    {% if user_reviewer_type %}
+      setReviewerType('{{ user_reviewer_type }}');
+    {% else %}
+      setReviewerType('student');
+    {% endif %}
+
+    if (studentTabBtn) studentTabBtn.addEventListener('click', () => setReviewerType('student'));
+    if (companyTabBtn) companyTabBtn.addEventListener('click', () => setReviewerType('company'));
+    // clicking radio also updates hidden field
+    if (reviewerRadioStudent) reviewerRadioStudent.addEventListener('change', () => setReviewerType('student'));
+    if (reviewerRadioCompany) reviewerRadioCompany.addEventListener('change', () => setReviewerType('company'));
   </script>
 </body>
 </html>

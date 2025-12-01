@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Details</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: "Poppins", sans-serif;
+    }
+    .card {
+      border-radius: 15px;
+    }
+    .card-header {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    p {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5 mb-5">
+    <div class="card shadow">
+      <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Application Details</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="text-primary mb-3">{{ job.title }}</h5>
+
+        <p><strong>Candidate Name:</strong> {{ application.full_name }}</p>
+        <p><strong>Email:</strong> {{ application.email }}</p>
+        <p><strong>Phone:</strong> {{ application.phone }}</p>
+        <p><strong>Date of Birth:</strong> {{ application.dob|default:"N/A" }}</p>
+        <p><strong>Education:</strong> {{ application.education|default:"N/A" }}</p>
+        <p><strong>Experience:</strong> {{ application.experience|default:"N/A" }}</p>
+        <p><strong>Expected Salary:</strong> {{ application.expected_salary|default:"N/A" }}</p>
+        <p><strong>Skills:</strong> {{ application.skills|default:"N/A" }}</p>
+
+        <p><strong>Portfolio:</strong>
+          {% if application.portfolio %}
+            <a href="{{ application.portfolio }}" target="_blank">{{ application.portfolio }}</a>
+          {% else %}
+            N/A
+          {% endif %}
+        </p>
+
+        {% if application.cover_letter %}
+        <div class="mt-4">
+          <h6>Cover Letter:</h6>
+          <div class="border p-3 rounded bg-light">{{ application.cover_letter }}</div>
+        </div>
+        {% endif %}
+
+        <div class="mt-4">
+          <p><strong>Status:</strong>
+            <span class="badge 
+              {% if application.status == 'PENDING' %} bg-warning
+              {% elif application.status == 'INTERVIEW' %} bg-info
+              {% elif application.status == 'OFFER' %} bg-success
+              {% elif application.status == 'REJECTED' %} bg-danger
+              {% else %} bg-secondary {% endif %}
+            ">
+              {{ application.get_status_display }}
+            </span>
+          </p>
+        </div>
+
+        <a href="{% url 'view_applicants' job.id %}" class="btn btn-outline-secondary mt-3">
+          Back to Applicants
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

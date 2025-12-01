@@ -11,7 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 
 # Import models and form
-from .models import CandidateProfile, CompanyProfile, JobPosting, JobApplication, CandidateResume
+from .models import CandidateProfile, CompanyProfile, JobPosting, JobApplication, CandidateResume, Review
 from .forms import JobPostingForm # Assumes you have created this form
 
 
@@ -149,7 +149,63 @@ def company_login(request):
 
 # Landing Page
 def landing_page(request):
-    return render(request, "landing.html")
+    # Prepare testimonials for landing page (students and companies)
+    student_reviews = Review.objects.filter(is_active=True, reviewer_type='student').order_by('-created_at')[:6]
+    company_reviews = Review.objects.filter(is_active=True, reviewer_type='company').order_by('-created_at')[:6]
+    # Detect if user is logged-in and their profile type to auto-set reviewer type
+    user_reviewer_type = None
+    try:
+        if request.user.is_authenticated:
+            if CandidateProfile.objects.filter(user=request.user).exists():
+                user_reviewer_type = 'student'
+            elif CompanyProfile.objects.filter(user=request.user).exists():
+                user_reviewer_type = 'company'
+    except Exception:
+        user_reviewer_type = None
+
+    context = {
+        'student_reviews': student_reviews,
+        'company_reviews': company_reviews,
+        'user_reviewer_type': user_reviewer_type,
+    }
+    return render(request, "landing.html", context)
+
+
+def submit_review(request):
+    # Accepts POST submissions from landing page review form (anonymous allowed)
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip() or 'Anonymous'
+        company = request.POST.get('company', '').strip() or None
+        rating = int(request.POST.get('rating', 5)) if request.POST.get('rating') else 5
+        review_text = request.POST.get('review', '').strip()
+        # If reviewer_type provided (optional) else default to 'student'
+        reviewer_type = request.POST.get('reviewer_type', 'student')
+        # sanitize reviewer type
+        if reviewer_type not in ('student', 'company'):
+            reviewer_type = 'student'
+
+        # If user is logged-in and wants to explicitly confirm their profile type, we still keep
+        # the posted value. However, we can log or enforce policy if desired.
+
+        if not review_text:
+            from django.contrib import messages
+            messages.error(request, 'Please provide a short review text before submitting.')
+            return redirect('landing_page')
+
+        # Create review; mark active True so it appears immediately in success stories
+        Review.objects.create(
+            name=name,
+            company=company,
+            rating=max(1, min(5, rating)),
+            review=review_text,
+            reviewer_type=reviewer_type,
+            is_active=True
+        )
+        from django.contrib import messages
+        messages.success(request, 'Thank you for your review! It is now shown on the site under Success Stories.')
+        return redirect('landing_page')
+    # Non-POST - redirect to landing
+    return redirect('landing_page')
 
 
 # Common Sign Up Page (choose Student/Company)
@@ -449,3 +505,49 @@ def apply_for_job(request, job_id):
 
     # If GET → show the form
     return render(request, 'ApplyJob.html', {'job': job})
+
+@login_required
+def view_applicants(request, job_id):
+    """
+    Show all applicants who applied for a specific job.
+    Only accessible by the company who posted the job.
+    """
+    try:
+        company_profile = CompanyProfile.objects.get(user=request.user)
+    except CompanyProfile.DoesNotExist:
+        messages.error(request, "You must be logged in as a company to view applicants.")
+        return redirect('home')
+
+    job = get_object_or_404(JobPosting, id=job_id, company=company_profile)
+    applicants = JobApplication.objects.filter(job=job).select_related('candidate')
+
+    context = {
+        'company': company_profile,
+        'job': job,
+        'applicants': applicants,
+    }
+    return render(request, 'view_applicants.html', context)
+
+@login_required
+def application_detail(request, application_id):
+    """
+    Show full details of a specific application.
+    Accessible only by the company who owns the job.
+    """
+    try:
+        company_profile = CompanyProfile.objects.get(user=request.user)
+    except CompanyProfile.DoesNotExist:
+        messages.error(request, "You must be logged in as a company to view application details.")
+        return redirect('home')
+
+    application = get_object_or_404(
+        JobApplication,
+        id=application_id,
+        job__company=company_profile
+    )
+
+    context = {
+        'application': application,
+        'job': application.job,
+    }
+    return render(request, 'application_detail.html', context)
